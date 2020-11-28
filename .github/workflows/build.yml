@@ -1,0 +1,45 @@
+name: Build
+
+on:
+  push:
+    branches-ignore:
+    - gh-pages
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: main
+    - name: Build Jekyll site
+      run: |
+        set -xo pipefail
+        rm -rf _site/*
+        docker run --rm \
+            -v "$PWD:/srv/jekyll" -v "$PWD/_site:/srv/jekyll/_site" \
+               jekyll/builder:4.0 /bin/bash -c "chmod -R 777 /srv/jekyll && jekyll build --future && chmod -R 777 /srv/jekyll"
+
+    - name: Deploy
+      if: github.ref == 'refs/heads/main'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages
+      run: |
+        set -xo pipefail
+        git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+        git checkout -b gh-pages || git checkout "${BRANCH}"
+        git branch
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@users.noreply.github.com"
+        git status
+
+        ls -Q | grep -v _site | xargs rm -rf        
+        mv _site/* .
+        rm -rf _site
+        rm -rf .jekyll-cache
+        [[ -n "$(git status --porcelain)" ]] || exit 0
+        git add .
+        git commit -m "Build $(git rev-parse source | grep -o '^.\{10\}')"
+        git push origin "${BRANCH}" --force
