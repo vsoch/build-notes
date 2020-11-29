@@ -6,10 +6,61 @@ permalink: /
 
 <div class="row">
 
+  <h1>BUILD</h1>
+
   <div>
     {% include search_form.html %}
   </div>
 
+  <div>{% include overview.html %}</div>
+
+  <h2>How do I use this site?</h2>
+  <hr>
+  <div>{% include usage.md %}</div>
+
+  <h2>Notes</h2>
+  <hr>
+
+  <h5>Thrusts</h5>
+  <div class="thi-columns">
+    <ul class="tag-post">
+    {% for thrust in site.notes %}
+      {% if thrust.url contains 'thrust' %}<a class="post-title" href="{{ site.baseurl }}{{ thrust.url }}">
+        <li>
+          {{ thrust.title }} 
+        </li>
+      </a>{% endif %}
+    {% endfor %}
+    </ul>
+  </div>
+
+  <h5>Papers</h5>
+  <div class="thi-columns">
+    <ul class="tag-post">
+    {% for paper in site.papers %}
+      <a class="post-title" href="{{ site.baseurl }}{{ paper.url }}">
+        <li>
+          {{ paper.title }} 
+        </li>
+      </a>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <h5>Topics</h5>
+  <div class="thi-columns">
+    <ul class="tag-post">
+    {% for note in site.notes %}
+      {% if note.url contains 'thrust' %}{% else %}<a class="post-title" href="{{ site.baseurl }}{{ note.url }}">
+        <li>
+          {{ note.title }} 
+        </li>
+      </a>{% endif %}
+    {% endfor %}
+    </ul>
+  </div>
+
+  <h5>Writeups</h5>
   <div class="thi-columns">
     <ul class="tag-post">
     {% for post in paginator.posts %}
@@ -25,17 +76,17 @@ permalink: /
   <div class="col s12 center-align">
     <ul class="pagination">
       <li class="{% unless paginator.previous_page %}disabled{% else %}waves-effect{% endunless %}">
-        {% if paginator.previous_page %}
-        {% if paginator.previous_page == 1 %}
-        <a href="{{site.baseurl}}/">
-        {% else %}
-        <a href="{{site.baseurl}}/page{{paginator.previous_page}}">
-        {% endif %}
-        {% else %}
-        <a href="#!">
-        {% endif %}
-          <i class="material-icons">chevron_left</i>
-        </a>
+      {% if paginator.previous_page %}
+      {% if paginator.previous_page == 1 %}
+      <a href="{{site.baseurl}}/">
+      {% else %}
+      <a href="{{site.baseurl}}/page{{paginator.previous_page}}">
+      {% endif %}
+      {% else %}
+      <a href="#!">
+      {% endif %}
+        <i class="material-icons">chevron_left</i>
+      </a>
       </li>
       {% if paginator.page == 1 %}
       <li class="active teal">
@@ -53,24 +104,14 @@ permalink: /
       {% endif %}
       {% endfor %}
       <li class="{% unless paginator.next_page %}disabled{% else %}waves-effect{% endunless %}">
-        {% if paginator.next_page %}
-        <a href="{{site.baseurl}}/page{{paginator.next_page}}">
-        {% else %}
-        <a href="#!">
-        {% endif %}
-          <i class="material-icons">chevron_right</i>
-        </a>
+      {% if paginator.next_page %}
+      <a href="{{site.baseurl}}/page{{paginator.next_page}}">
+      {% else %}
+      <a href="#!">
+      {% endif %}
+        <i class="material-icons">chevron_right</i>
+      </a>
       </li>
     </ul>
   </div>
-
-  <div class="tag-div">
-    <h2 class="h2-title">References</h2>
-  </div>
-  
-  <div class="thi-columns">
-    {% bibliography %}
-  </div>
-
 </div>
-

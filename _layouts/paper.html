@@ -16,7 +16,7 @@ js: ["post.js"]
     <div id="post-info">
       <h3>{{page.title}}</h3>
       <span>
-        Posted on
+        Updated on
         <span style="display: initial;" class="cat-class">{{page.date | date: "%d/%m/%Y"}}</span>
         {% for cat in page.categories %}
           {% for catDat in site.data.categories %}
@@ -27,7 +27,7 @@ js: ["post.js"]
           {% if catego %}
             <a class="cat-class cat-commas" href="{{site.baseurl}}/categories#{{cat | slugify}}">{{ catego.name }}</a>{% unless forloop.last %},{% else %}.{% endunless %}
           {% endif %}
-        {% endfor %}| <a style="float:right" href="https://github.com/{{ site.repository }}/edit/main/{{ page.path }}" target="_blank">🗒️ Edit on GitHub</a>
+        {% endfor %} <a style="float:right" href="https://github.com/{{ site.repository }}/edit/main/{{ page.path }}" target="_blank">🗒️ Edit on GitHub</a>
       </span>
     </div>
 
@@ -35,6 +35,9 @@ js: ["post.js"]
     <div class="row thi-post">
       <div class="col s12">
         {{ content }}
+
+      <hr> 
+      {% bibliography --cited %}
       </div>
     </div>
 
@@ -45,7 +48,6 @@ js: ["post.js"]
       <a class="tag-chip" href="{{site.baseurl}}/tags#{{tag | slugify}}{% if test == testup %}_cap{% endif %}"><div class="chip z-depth-1">{{tag}}</div></a>
       {% endfor %}
     </div>
-    {% include related-posts.html %}
     {% include search_form.html %}
   </div>
 </main>
