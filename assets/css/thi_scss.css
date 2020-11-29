@@ -29,34 +29,30 @@
 h1 {
     font-size: 2.6rem;
     font-weight: bold;
-    margin: 6rem 0 1rem 0;
+    margin: 2.5rem 0 1rem 0;
 }
 h2 {
-    font-size: 2.3rem;
+    font-size: 2.0rem;
     font-weight: bold;
-    margin: 5rem 0 1rem 0;
+    margin: 2.3rem 0 1rem 0;
 }
 h3 {
     font-size: 1.8rem;
     font-weight: bold;
-    margin: 5rem 0 1rem 0;
+    margin: 2.2rem 0 1rem 0;
 }
 h4 {
     font-size: 1.5rem;
     font-weight: bold;
-    margin: 5rem 0 1rem 0;
-}
-
-h4 {
-    margin: 4rem 0 1rem 0;
+    margin: 2rem 0 1rem 0;
 }
 
 h5 {
-    margin: 3.5rem 0 1rem 0;
+    margin: 1.8rem 0 1rem 0;
 }
 
 h6 {
-    margin: 3.0rem 0 1rem 0;
+    margin: 1.5rem 0 1rem 0;
 }
 
 .thi-post h1 {
@@ -411,6 +407,7 @@ new::before {
 new p {
     display: initial;
 }
+
 new p ~ ul,
 new p ~ ol {
     margin-top: 1rem;
@@ -777,6 +774,9 @@ td {
 }
 .side-nav li > a {
     font-size: inherit;
+}
+.side-nav {
+  padding-top: 0px;
 }
 .thi-columns {
     -webkit-columns: 350px 2;

@@ -1,9 +1,12 @@
-title: notes-jekyll
+title: BUILD Notes
 description: I want to write it down, and for it to be pretty.
-baseurl: "/notes-jekyll"
+baseurl: "/build-notes"
 url: ""
-repository: vsoch/notes-jekyll
+repository: vsoch/build-notes
 paginate: 28
+
+# Repository folder (private) with papers
+papers_url: https://github.com/LLNL/build-bib/blob/main/papers
 
 banner: "/assets/img/banner.png" # site banner (load when someone share your page url)
 favicon: "/assets/img/favicon.ico" # site's favicon (icon left side of your page)
@@ -13,13 +16,27 @@ collections:
   papers:
     output: true
     permalink: /:collection/:path
-    collections_dir: papers
+  notes:
+    output: true
+    permalink: /:collection/:path
   paper-details:
     output: true
     permalink: /:collection/:path
     collections_dir: paper-details
 
-# MatJek specific configurations
+
+defaults:
+  - scope:
+      path: "_papers"
+      type: "papers"
+    values:
+      layout: "paper"
+  - scope:
+      path: "_notes"
+      type: "notes"
+    values:
+      layout: "post"
+
 user: 
   avatar: "/assets/img/logo.png"
   github: "vsoch"
@@ -47,7 +64,6 @@ scholar:
   bibliography: references.bib
 # TODO need to figure out how to add prefix here
   bibliography_template: bibitem-template
-  repository: papers
   details_dir: "paper-details"
   details_layout: "details.html"
 #  details_permalink: "/notes-jekyll/:details_dir/:key:extension"
