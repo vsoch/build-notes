@@ -7,6 +7,8 @@ js: ["post.js"]
 <header>
   {% if page.toc %}
     {% include header-toc.html %}
+  {% else if page.terms %}
+    {% include terms-toc.html %}
   {% else %}
     {% include header.html %}
   {% endif %}

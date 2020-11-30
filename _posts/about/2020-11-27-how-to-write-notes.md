@@ -25,6 +25,7 @@ The following components are included:
 
 - `maths: 1` add this if you want to use mathematical expression in the post.
 - `toc: 1` if you want to display a table of contents on the left sidebar
+- `terms: 1` if you want the sidebar to show a list of site terms
 - `datacamp: 1` if you want to embed a datacamp interactive code question (see below)
 - `categories: [notetheme,jekyll]` add category you want
 - `tags: [notetheme,jekyll,code]` add tag you want
