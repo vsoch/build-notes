@@ -20,7 +20,6 @@ Proposed research and development topics include (but are not limited to) the fo
 ### 1. Understand models of container ABI compatibility
 This can include MPI libraries, GPU libraries, libfabrics, scheduler integration, or any interface that needs to remain compatible to ensure container portability. We will conduct studies to determine rules around ABI layer selection, analysis techniques to compare ABI compatibility between containers and hosts, and best practices for maintaining compatibility over time.
 
-
 ### 2. Research ways to dynamically assemble software stacks around ABI constraints.  
 Running a container with hardware support on a host OS requires us to marry two or more independently curated software ecosystems (container and run host(s)) together. Given a set of ABI constraints, e.g. from several base OS or library versions, can we build a container that satisfies all of them? Can two applications be consolidated based on ABI requirements, or do they need to be in separate containers?How can we construct maximally performant and portable software stacks? 
 
@@ -29,6 +28,29 @@ Modern open source software stacks evolve very rapidly, and it can be very hard 
 
 ### 4. How can we build infrastructure to support ABI-based dependency resolution?
 BUILD aims to build dependency resolvers that check ABI and solve around ABI conflicts automatically.  There will likely need to be databases of ABI and build information to back such a resolver, and we have not, so far, investigated how best to build these. We will leverage Dr. Sochat’s expertise both in software ecosystems, containers, and scientific workflow design to build such infrastructure.
+
+<hr>
+
+## Ideas for Projects
+
+Still unrelated to the R&D tasks above, the following projects are inspired by papers, and could be useful
+in some way integrated into the tasks above.
+
+### Decision Comparison
+
+If we need to (superficially) compare how package managers make decisions, we could select a small number of packages,
+and akin to how they did in {% include paper.html key="abate-2013-modular-package-manager" %} attempt to install
+each package across different package managers (e.g., apt-get, yum, aptitute, etc.) and parse the output to determine how
+the managers make decisions {% cite abate-2013-modular-package-manager %}. We would then want to look at how each one works and map the behavior that we see to 
+some solver or heuristic.
+
+This would help to understand how well-known package managers work, and to familiarize with them so that
+if we wanted to imagine changing them to be more modular, we might have a sense of how to go about it.
+
+### Bootstrap CUDF
+
+I was reading in {% cite abate-2013-modular-package-manager %} that CUDF can allow for definition of "additional properties."
+Would our first efforts want to try and define additional properties related to ABI compatability, and just use standard CUDF? I realize now that I don't have a sense of if CUDF is a good idea/direction or not. Based on the papers presenting it, it seems to be?
 
 <hr>
 

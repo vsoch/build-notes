@@ -27,7 +27,7 @@ for user preferences (the one developed by the Mancoosi project) and then coming
 
 ### Terms
 
- - [OCaml](https://ocaml.org/learn/description.html) is a programming language developed at Inria.
+ - [OCaml](https://ocaml.org/learn/description.html) is a programming langufage developed at Inria.
  - [OPAM](https://opam.ocaml.org/about.html) is a package manager for OCaml
  
 
@@ -51,23 +51,4 @@ page of the PDF to see all the different measurement functions.
 
 #### CUDF
 
-[CUDF](https://www.mancoosi.org/cudf/) means "Common Upgradeable Description Format" and it comes
-down to being a text file that describes how user preferences map into update actions. Specifically:
-
-{% quote abate+:ocaml14-pkg-manager-prefs %}
-A format to encode upgrade problems which is recognized by several specialised dependency solvers, and allows users to express complex scenarios in awell defined and compact way by means of preferences that are passed over to the external solver.
-{% endquote %}
-
-There is a nice primer [here](https://www.mancoosi.org/cudf/primer/). But TLDR, it looks like a flattened yaml file with a list of packages, conflicts, and other metadata.
-
-```yaml
-package: m4
-version: 3
-depends: libc6 >= 8
-
-package: openssl
-version: 11
-depends: libc6 >= 18, libssl0.9.8 >= 8, zlib1g >= 1
-conflicts: ssleay < 1
-```
-
+See the {% include term.html key="cudf" %} term page for notes from this paper.

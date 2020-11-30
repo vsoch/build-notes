@@ -19,6 +19,9 @@ collections:
   notes:
     output: true
     permalink: /:collection/:path
+  terms:
+    output: true
+    permalink: /:collection/:path
   paper-details:
     output: true
     permalink: /:collection/:path
@@ -31,6 +34,11 @@ defaults:
       type: "papers"
     values:
       layout: "paper"
+  - scope:
+      path: "_terms"
+      type: "terms"
+    values:
+      layout: "post"
   - scope:
       path: "_notes"
       type: "notes"

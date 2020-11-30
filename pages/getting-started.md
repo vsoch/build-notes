@@ -142,6 +142,35 @@ and the <a href="https://vsoch.github.io/notes-jekyll/how-to-write-notes">How to
 for formatting examples.</span>
 </fieldset>
 
+##### Links to Papers
+
+When taking notes specific to a paper (e.g., a file in `_papers`) it's common to want to link to another paper.
+For example, I came across CUDF in two places, and wanted to link to the correct section. To do this, I could
+insert an include as follows:
+
+```html
+{% raw %}See {% include paper.html key="abate+ocaml14-pkg-manager-prefs" title="this paper for more on CUDF" id="cudf" %}.{% endraw %}
+```
+This would link me directly to `/build-notes/papers/abate+ocaml14-pkg-manager-prefs#cudf`, with text for the link as
+I specified. The only required attribute is the key, however, so I could just do this:
+
+```html
+{% raw %}See {% include paper.html key="abate+ocaml14-pkg-manager-prefs" %}.{% endraw %}
+```
+
+And it would link to the top of the page with text `[ref]`.
+
+
+##### Links to Terms
+
+Since terms can appear across papers, it's helpful to put them into their own organization.
+For this purpose, we have a `_terms` folder where you can create a term file, and link to as follows:
+
+```
+{% raw %}{% include term.html key="cudf" %}.{% endraw %}
+```
+
+The above would link to the term page "cudf" in the file `_terms/cudf.md`.
 
 #### 4. Metadata for notes
 
