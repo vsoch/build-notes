@@ -15,13 +15,27 @@ of what this should look like, but I'll include interesting notes that are relev
 Here is an early understanding of a general flow:
 
 ```
-user preferences --> package manager --> solver --> scenario --> [if solution] --> action
-                                                                 [else]        --> rollback
+user preferences --> package manager --> translate to upgrade problem (CUDF) --> solver -->  --> CUDF-encoded solution --> scenario --> [if solution] --> action [else] rollback
 ```
-The above says that we start with user preferences that are assembled by the package manager client,
-at some point generate a CUDF document that describes the needed changes, hand them off to a solver to come up
+
+The above says that we start with user preferences that are assembled by the package manager, hand them off to a solver (package manager agnostic, used like plugins) to come up
 with a solution. There are several ways to describe a solution (scenario) that determines
-if we move forward or not. There are also terms that can describe the scenarios [terms](#terms)
+if we move forward or not. The input and output to the solver is a CUDF document that describes the needed changes. There are also terms that can describe the scenarios [terms](#terms)
+
+## Package Manager
+
+The package manager should generally have the following inputs and outputs {% cite abate2020dependency %}
+
+1. Take as input:
+  - the current status of packages on the system
+  - a universe of all available packages (in other papers called `U`)
+  - a user request (e.g., "install xyz, remove xyz")
+  - user preferences (e.g., "minimize updated software")
+2. Return as output:
+  - an upgrade plan: a list of actions to take on the system to reach the status that the user wants (e.g., installing thething)
+
+And we can evaluate these steps based on **expressivity** - how empowered the user is to
+express preferences, and **completeness** - being able to propose a valid update plan (the output) when one exists.
 
 ## User preferences
 

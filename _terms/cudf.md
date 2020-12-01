@@ -7,7 +7,13 @@ terms: 1
 [CUDF](https://www.mancoosi.org/cudf/) means "Common Upgradeable Description Format" and it comes
 down to being a text file that describes how user preferences map into update actions. I tend to think of it as
 an upgrade problem encoded in a text file, or the input/output format for package managers (such as MPM)
-to represent an upgrade scenario. Specifically:
+to represent an upgrade scenario. The paper {% cite abate2020dependency %} calls CUDF:
+
+{% quote abate2020dependency %}
+a lingua franca between package managers and solvers
+{% endquote %}
+
+And in an earlier paper, the same authors defined CUDF as:
 
 {% quote abate+:ocaml14-pkg-manager-prefs %}
 A format to encode upgrade problems which is recognized by several specialised dependency solvers, and allows users to express complex scenarios in awell defined and compact way by means of preferences that are passed over to the external solver.
