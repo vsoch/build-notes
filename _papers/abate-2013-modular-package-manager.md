@@ -100,7 +100,7 @@ recent work that improves upon the ideas.
 
  - **package** A software component paired with metadata that describes how to install it on a system. Each package can follow a unique development pipeline and even versioning scheme [reference](https://www.youtube.com/watch?v=NSemlYagjIU).
  - [CUDF](https://www.mancoosi.org/cudf/) The Common Upgradeability Description Format, a text file that describes all conflicts, and dependencies based on some user preferences to install software. See the {% include term.html key="cudf" %} term page for notes from this paper.
- - [user preference language]() "describes criteria used to determine the best solution"
+ - [user preference language]() Allows to specify a list of criteria (sometimes called measurements) of package selectors, and each has a plus or minus prefix to indicate minimizing or maximizing.
 
 #### Mancoosi Package Manager (MPM)
 
