@@ -20,28 +20,22 @@ overall site configuration, see [the repository README](https://github.com/vsoch
 
 #### 1. Organization
 
-The template is organized to allow for several ways for you to take notes:
+The template is organized to allow for several ways for you to take notes. These are the directories
+that you might be interested in:
 
-##### Papers
+```bash
+.
+├── _notes
+├── pages
+├── _papers
+├── _posts
+└── _terms
+```
 
-Notes on specific papers can be added to the the <a href="https://github.com/{{ site.repository }}/tree/main/_papers" target="_blank">papers</a> folder. Specifically, you should name the markdown file to match the paper key in the BibTex.
+Of the above, everything with an underscore is for notes, and `pages` is more appropriate
+for a site page (e.g., this one). Continue reading and see section 3 for how to choose the section
+to take notes in.
 
-##### Thrusts
-
-Each thrust has it's own file in the <a href="https://github.com/{{ site.repository }}/tree/main/_notes/thrusts" target="_blank">thrusts</a> notes folder. These files already exist so you should not need to add anything.
-
-##### Topics
-
-A topic is a general theme that you might want to extract from many papers, and write consolidated notes for (e.g., solvers).
-To create a new topic, create a markdown file in the <a href="https://github.com/{{ site.repository }}/tree/main/_notes" target="_blank">notes</a> folder. You can organize your files in subfolders however you like.
-
-##### Writeups
-
-<a href="https://github.com/{{ site.repository }}/tree/main/posts" target="_blank">Posts</a> are intended for any kind of more structured writeup that warrants a timestamp. For example, we have a <a href="{{ site.baseurl }}/how-to-write-notes">writeup</a> that demonstrates all the different kind of formatting you can do.
-
-##### Pages
-
-Any higher level page (e.g., this one, or about) generally can be found in the <a href="https://github.com/{{ site.repository }}/tree/main/pages" target="_blank">pages</a> folder. These pages aren't automatically linked so you would need to manually add them somewhere on the side (e.g., the table of contents on the sidebar).
 
 #### 2. References
 
@@ -53,18 +47,51 @@ By default, you should expect the name of the paper pdf to match the name of the
 suggested to do a format like `papers/%f{Cite Key}`. You can also just add citations
 and papers manually, it's up to you!
 
-
 #### 3. How to take notes
 
-Once you have your papers, you of course want to take notes! Basically, any post
-that you write under `_posts` will render into a page of notes. Any reference
-that you add to your references file will automatically render on the home page,
-and can be easily read from here or referenced in any page.
+Once you have your papers, you of course want to take notes! The nice thing is that these
+are all in Markdown, and you can cite or insert references almost anywhere. Basically, you have a few options:
 
-The rederences will generally be available to cite anywhere in the site where you can write Markdown.
-I chose this approach because I like writing in Markdown.
-While we could investigate solutions to run a web server and render a PDF, the simpler
-approach of using Markdown will likely be more comfortable for users with different
+##### Papers
+
+Specific notes on papers should go under `_papers`, with the name of the paper corresponding
+to the key in the BibTex (with `:` characters removed!) For each paper, it's helpful to include
+an overview, sections that you think are appropriate to explain the paper, figures or tables if
+you think they are super important, possibly a list of terms, and even a TLDR for a quick "too long
+didn't read, give me the gist." If you want to start with a template or example, it's easy
+enough to copy the file of another paper.
+
+##### Terms
+
+For terms that appear across papers, you can create a markdown file (named by the term, e.g., `cudf.md`)
+in the `_terms` folder. You can link to it directly anywhere with this snippet:
+
+```
+{% raw %}{% include term.html key="cudf" %}.{% endraw %}
+```
+
+E.g., when I read the many Abate papers I found lots about CUDF, and found it easier
+to use the link above.
+
+##### Topics
+
+A topics page can be thought of as a general note, e.g., we have one already for containers,
+and one I called "flow" that talks about general named things in the flow of package management.
+Any concept that isn't appropriate for a term (and obviously isn't a paper) can go here. 
+
+##### Writeups
+
+For anything that is temporal in nature, or something that might be akin to a more complete writeup,
+this can be put in the `_posts` folder and be rendered as a post. Currently we have the "How to write a post"
+page here.
+
+##### Thrusts
+
+Each thrust has it's own file in the <a href="https://github.com/{{ site.repository }}/tree/main/_notes/thrusts" target="_blank">thrusts</a> notes folder. These files already exist so you should not need to add anything.
+
+
+For all of the above, references are generally available, so you can cite anywhere on the page (see following sections).
+I chose this approach because I like writing in Markdown. While we could investigate solutions to run a web server and render a PDF, the simpler approach of using Markdown will likely be more comfortable for users with different
 editor preferences.
 
 
