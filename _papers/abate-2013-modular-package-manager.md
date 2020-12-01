@@ -4,6 +4,13 @@ toc: 1
 
 ## A Modular Package Manager Architecture
 
+### TLDR
+
+Mancoosi Package Manager (MPM) is a hodge podge of debian tools (the client, and hooks to apt) in Python and standards
+(using CUDF as input output for an upgrade scenario) and it's slow as heck, but performs better than other
+Debian-based package mangers. This paper is more a review of CUDF and then argument that modularity is the way
+to go, as demonstrated by a few studies that show this strategy comes up with more optimal solutions.
+
 ### Overview
 
 The authors present **package managers** the tools to install/remote software, and argue
@@ -69,15 +76,25 @@ This is the first paper that I've encountered that describes different scenarios
 managers can run into (e.g., healthy, peaceful). This is something that I think should be better flushed
 out into an idea - "What is the standard or schema for some package manager flow?"
 See the <a href="{{ site.baseurl }}/notes/flow">flow</a> page for this idea.
+It sounds like there is work in progress to standardized criteria and aggregation functions,
+but this paper was 7 years ago, so we will need to read a more recent one (abate 2020?)
+to know the current status.
 
-**stopped at end of page 15, will pick up later**
+#### Solvers
+
+This paper has a short list of solvers (p. 16) that use CUDF, but I remember a more robust table
+in the Abate 2020 paper, so I won't reproduce the list here.
 
 ### Takeaways
 
 The takeaway from this paper is that many package managers use ad-hoc heuristics, and this is messy.
 If we uncouple dependency resolution from the package manager (e.g., the solvers) we can
 more easily share components. The package manager should act as a skeleton client to interact with the
-user, and we should be able to plug in components.
+user, and we should be able to plug in components. This paper presents the general idea of embracing
+already existing package managers (e.g., apt) and functionality, and integrating into a new tool (MPM)
+that can take as input criteria and solvers, and then use CUDF as an input/output format to make 
+them more modular. I think this was probably a novel idea back in 2013, but now there must be more
+recent work that improves upon the ideas.
 
 ### Terms
 
@@ -90,3 +107,65 @@ user, and we should be able to plug in components.
 This is a proof of concept implementation of the idea of the authors, a modular package manager.
 It uses CUDF to capture dependency information and the user preference langauage to ask the user
 for what to optimize, etc. The implication is that the MPM is a creation of the [Mancoosi project](https://www.mancoosi.org/).
+The idea of MPM is that it uses CUDF as input/output. MPM:
+
+ - uses apt on the back end to parse the command line and install packages
+ - has removed, new, changed, and notuptodate as criteria
+ - you can specify a solver plugin with `-s <solver>` (that't kind of cool! Will we try this with a custom solver?)
+ - you can specify a criterion with `-c <option>` (e.g., -removed)
+ - `-o <option>` passes an option to apt
+ - `debtodudf` is used to translate Debian package metadata to CUDF
+ - MPM is written in Python and uses Python bindings to apt (wow, didn't expect that!)
+ - supports all the same command line arguments as apt
+ - uses the `aspcud` solver that won one of the MISC competitions.
+
+{% include tip.html content="Regardless of the format we use to represent an upgrade scenario (e.g., CUDF) there would always need to be some kind of translator to derive it from the original user request and package manager." %}
+
+The above has me wondering if we want to just work on the solver (e.g., take the same constraints but
+add another level of information to it) or if we want to require the CUDF specification to better represent
+some of this information (arguably this would be harder because the package managers would have to extract it,
+and might be redundant if we would need to double check again). I'm also wondering why there is such a focus on
+apt/Debian.
+
+##### Performance Testing
+
+The authors first justify that time isn't important because their implementation is a proof of concept.
+For testing they use containers, and do 5 groups of tests that add/remove the same package under
+different Debian releases. The salient difference in the package release universes is that newer ones
+have many more packages (logically). For each, they did 162 (why 162?) install/remove requests, and randomly
+selected packages ensuring that there is a solution (again, how?) They only consider results that made it
+within the 300s timeout. They classified results into three categories:
+
+ - best solution
+ - optimal solution
+ - failure (crashed or not a correct solution)
+
+They show that performance varies between 50% and 75%, with MPM being the best (see figure).
+
+![https://www.mancoosi.org/measures/packagemanagers/2012/mpm-results-2012.png](https://www.mancoosi.org/measures/packagemanagers/2012/mpm-results-2012.png)
+
+This is overall one way to go about testing how well solvers work between different package managers, but it
+seems rough around the edges because they are working as black boxes for the most part.
+
+#### Related Work
+
+Pages 20-21 walk through Debian and RHEL distribution package managers (apt vs. yum) and all the
+associated tools that do everything from fetch packages to using solvers. The interesting observation
+here is that tools are optimized to their repository sets, e.g., a well defined set of repository metadata
+can allow for a heuristic that ensures some solution.  Table 2 is useful (and small enough to include here)
+
+| Tool|Solver|Optimization|Complete|
+|---|-------|-------------|--------|
+|apt-get|internal|hard-coded|no|
+|aptitude|internal|hard-coded|no|
+|cupt|internal|hard-coded|no|
+|smart|internal|programmable|maybe|
+
+Wow, there are at ton of "hard-coded"s in that table!
+
+
+#### Data and Appendix
+
+ - Appendix A has a nice summary of the CUDF format
+ - [Data](http://data.mancoosi.org/papers/ist2012/) for package install comparison analysis
+ - [Data Writeup](https://www.mancoosi.org/measures/packagemanagers/2012/) with plot.

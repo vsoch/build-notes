@@ -55,8 +55,6 @@ paranoid=lex(−removed,−changed)
 trendy=lex(−removed,−notuptodate,−unsatrec,−new)
 ```
 
-**stopped at end of page 15, will pick up later**
-
 ## Scenarios
 
 The paper {% cite abate-2013-modular-package-manager --locator 12 %} describes different solution scenarios,
