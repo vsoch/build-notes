@@ -17,5 +17,8 @@ This means that when we want a new package version, we throw away the old contai
 
 I'm not saying this is a good solution (it's very redundant) but it's inspiring for thought!
 
+### Are more constraints better?
+
+{% cite abate2012dependency %} mentioned that it gets more complex as the size of the repository increases and you add more metadata, but it seems like being able to eliminate solutions more quickly that don't fit with some architecture would get us faster to a solution (or a no solution). So is the trick having fewer metadata points that are more useful (e.g., something derived from the package binaries is more meaningful than random user specifications of versions needed?)
 
 {% bibliography --cited %}
