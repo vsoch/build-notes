@@ -22,6 +22,15 @@ The above says that we start with user preferences that are assembled by the pac
 with a solution. There are several ways to describe a solution (scenario) that determines
 if we move forward or not. The input and output to the solver is a CUDF document that describes the needed changes. There are also terms that can describe the scenarios [terms](#terms)
 
+## Software Maintenance Technologies
+
+The "ingredients" of "software maintenance technologies" according to {% cite abate2012dependency %} are:
+
+ - dependencies
+ - conflicts
+ - package managers with dependency solving capabilities
+
+
 ## Package Manager
 
 The package manager should generally have the following inputs and outputs {% cite abate2020dependency %}
@@ -36,6 +45,12 @@ The package manager should generally have the following inputs and outputs {% ci
 
 And we can evaluate these steps based on **expressivity** - how empowered the user is to
 express preferences, and **completeness** - being able to propose a valid update plan (the output) when one exists.
+
+In {% cite abate2020dependency %} they (mostly same) authors make a similar statement, saying that package managers should (this is verbatim):
+
+1. devise upgrade plans that are correct (i.e. no plan that violates component expectations is proposed) and complete (i.e. every time asuitable plan exists, it can be found)
+2. have performances that scale up gracefully at component repositories growth
+3. empower users to express preferences on the desired component configuration when several options exist, which is often the case
 
 ## User preferences
 
