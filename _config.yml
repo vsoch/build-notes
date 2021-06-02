@@ -2,7 +2,7 @@ title: BUILD Notes
 description: I want to write it down, and for it to be pretty.
 baseurl: "/build-notes"
 url: ""
-repository: vsoch/build-notes
+repository: buildsi/build-notes
 paginate: 28
 
 # Repository folder (private) with papers
@@ -47,7 +47,7 @@ defaults:
 
 user: 
   avatar: "/assets/img/logo.png"
-  github: "vsoch"
+  github: "buildsi"
 
 # Build settings
 markdown: kramdown
